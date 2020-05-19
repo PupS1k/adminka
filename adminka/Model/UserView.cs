@@ -12,7 +12,6 @@ namespace adminka.Model
         public int Age { get; set; }
         public string UserName { get; set; }
 
-        public int? RoleId { get; set; }
         public RoleView Role { get; set; }
     }
 }

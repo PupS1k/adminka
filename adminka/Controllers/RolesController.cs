@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using adminka.Model;
+using AutoMapper;
 
 namespace adminka.Controllers
 {
@@ -14,53 +15,56 @@ namespace adminka.Controllers
     public class RolesController : ControllerBase
     {
         private readonly UserContext _context;
+        private readonly IMapper _mapper;
 
-        public RolesController(UserContext context)
+        public RolesController(UserContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
 
         // GET: api/Roles
         [HttpGet]
-        public IEnumerable<Role> GetRoles()
+        public IEnumerable<RoleView> GetRoles()
         {
-            return _context.Roles;
+            var roles = _context.Roles.ToList();
+            return _mapper.Map<List<Role>, List<RoleView>>(roles);
         }
 
         // GET: api/Roles/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetRoleDTO([FromRoute] int id)
+        public async Task<IActionResult> GetRole([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var roleDTO = await _context.Roles.FindAsync(id);
+            var role = await _context.Roles.Where(r => r.Id == id).ToListAsync();
 
-            if (roleDTO == null)
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return Ok(roleDTO);
+            return Ok(role);
         }
 
         // PUT: api/Roles/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoleDTO([FromRoute] int id, [FromBody] Role roleDTO)
+        public async Task<IActionResult> PutRole([FromRoute] int id, [FromBody] Role role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != roleDTO.Id)
+            if (id != role.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(roleDTO).State = EntityState.Modified;
+            _context.Entry(role).State = EntityState.Modified;
 
             try
             {
@@ -68,7 +72,7 @@ namespace adminka.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoleDTOExists(id))
+                if (!RoleExists(id))
                 {
                     return NotFound();
                 }
@@ -83,41 +87,41 @@ namespace adminka.Controllers
 
         // POST: api/Roles
         [HttpPost]
-        public async Task<IActionResult> PostRoleDTO([FromBody] Role roleDTO)
+        public async Task<IActionResult> PostRole([FromBody] Role role)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _context.Roles.Add(roleDTO);
+            _context.Roles.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRoleDTO", new { id = roleDTO.Id }, roleDTO);
+            return CreatedAtAction("GetRole", new { id = role.Id }, role);
         }
 
         // DELETE: api/Roles/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoleDTO([FromRoute] int id)
+        public async Task<IActionResult> DeleteRole([FromRoute] int id)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var roleDTO = await _context.Roles.FindAsync(id);
-            if (roleDTO == null)
+            var role = await _context.Roles.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            _context.Roles.Remove(roleDTO);
+            _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
 
-            return Ok(roleDTO);
+            return Ok(role);
         }
 
-        private bool RoleDTOExists(int id)
+        private bool RoleExists(int id)
         {
             return _context.Roles.Any(e => e.Id == id);
         }
