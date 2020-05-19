@@ -7,21 +7,16 @@ using System.Threading.Tasks;
 
 namespace adminka.Model
 {
-    public class UserDTO
+    public class User
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         public string FullName { get; set; }
-        [Required]
         public int Age { get; set; }
-        [Required]
         public string UserName { get; set; }
 
-        [Key]
-        [ForeignKey("Role")]
-        public int RoleId { get; set; }
-        public RoleDTO RoleDTO { get; set; }
+        public int? RoleId { get; set; }
+        public Role Role { get; set; }
 
     }
 }
