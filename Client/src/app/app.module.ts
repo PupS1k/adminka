@@ -7,10 +7,13 @@ import {ListRolesSmartComponent} from './roles/components/list-roles/list-roles-
 import {RoleSmartComponent} from './roles/components/role/role-smart.component';
 import {RoleDumbComponent} from './roles/components/role/role-dumb.component';
 import {ListRolesDumbComponent} from './roles/components/list-roles/list-roles-dumb.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RoleService} from './roles/services/role.service';
 import {RolesResolver} from './roles/services/roles.resolver';
 import {RoleResolver} from './roles/services/role.resolver';
+import {SpinnerComponent} from './layer/spinner/components/spinner.component';
+import {SpinnerService} from './layer/spinner/services/spinner.service';
+import {ReqInterceptor} from './layer/spinner/services/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,13 +22,23 @@ import {RoleResolver} from './roles/services/role.resolver';
     ListRolesDumbComponent,
     RoleSmartComponent,
     RoleDumbComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [RoleService, RolesResolver, RoleResolver],
+  providers: [
+    RoleService,
+    RolesResolver,
+    RoleResolver,
+    SpinnerService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ReqInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

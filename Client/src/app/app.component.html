@@ -6,8 +6,9 @@
     </ul>
   </div>
 </nav>
+<app-spinner *ngIf="isSpin$ | async"></app-spinner>
 <div class="container-fluid list-item">
   <router-outlet></router-outlet>
 </div>
-<button class="btn btn-success center-block">Add</button>
+<button class="btn btn-success center-block" *ngIf="!(isSpin$ | async)">Add</button>
 
