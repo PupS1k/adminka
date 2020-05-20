@@ -1,0 +1,25 @@
+:host {
+  .item {
+    display: flex;
+    height: 60px;
+    justify-content: space-between;
+    align-items: center;
+
+    &__body {
+      display: flex;
+      justify-content: center;
+    }
+
+    .id {
+      width: 50px;
+    }
+
+    .access {
+      width: 60px;
+    }
+
+    &__btns {
+      width: 158px;
+    }
+  }
+}

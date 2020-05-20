@@ -1,1 +1,13 @@
-<a href="#">News <span class="badge">5</span></a><br>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li routerLinkActive="active"><a routerLink="/users">Users</a></li>
+      <li routerLinkActive="active"><a routerLink="/roles">Roles</a></li>
+    </ul>
+  </div>
+</nav>
+<div class="container-fluid list-item">
+  <router-outlet></router-outlet>
+</div>
+<button class="btn btn-success center-block">Add</button>
+
