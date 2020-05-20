@@ -1,0 +1,29 @@
+<form [formGroup]="roleForm" (ngSubmit)="onSubmit()">
+  <div class="form-group col-xs-4 col-xs-offset-4">
+    <label for="name">Name</label>
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      name="name"
+      formControlName="name"
+    >
+  </div>
+  <div class="form-group col-xs-4 col-xs-offset-4">
+    <label for="access">Access</label>
+    <input
+      id="access"
+      type="text"
+      class="form-control"
+      name="access"
+      formControlName="access"
+    >
+  </div>
+  <button
+    class="btn btn-primary col-xs-4 col-xs-offset-4"
+    type="submit"
+    [disabled]="roleForm.invalid"
+  >
+    Update
+  </button>
+</form>

@@ -21,6 +21,9 @@ import {UserDumbComponent} from './users/components/user/user-dumb.component';
 import {UserService} from './users/services/user.service';
 import {UserResolver} from './users/services/user.resolver';
 import {UsersResolver} from './users/services/users.resolver';
+import { RoleEditDumbComponent } from './roles/components/role-edit/role-edit-dumb.component';
+import {RoleEditSmartComponent} from './roles/components/role-edit/role-edit-smart.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,12 +36,15 @@ import {UsersResolver} from './users/services/users.resolver';
     ListUsersDumbComponent,
     UserSmartComponent,
     UserDumbComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    RoleEditDumbComponent,
+    RoleEditSmartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     RoleService,

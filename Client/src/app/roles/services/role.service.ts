@@ -1,5 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {RoleForm} from '../models/role-form.model';
+import {Role} from '../models/role.model';
 
 
 @Injectable()
@@ -14,5 +16,15 @@ export class RoleService {
     return this.http.get(`https://localhost:44388/api/roles/${id}`);
   }
 
+  createRole(role: RoleForm) {
+    return this.http.post(`https://localhost:44388/api/roles`, role);
+  }
 
+  updateRole(role: Role) {
+    return this.http.put(`https://localhost:44388/api/roles/${role.id}`, role);
+  }
+
+  deleteRole(id) {
+    return this.http.delete(`https://localhost:44388/api/roles/${id}`);
+  }
 }
