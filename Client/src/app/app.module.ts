@@ -14,6 +14,13 @@ import {RoleResolver} from './roles/services/role.resolver';
 import {SpinnerComponent} from './layer/spinner/components/spinner.component';
 import {SpinnerService} from './layer/spinner/services/spinner.service';
 import {ReqInterceptor} from './core/http.interceptor';
+import {ListUsersSmartComponent} from './users/components/list-users/list-users-smart.component';
+import {ListUsersDumbComponent} from './users/components/list-users/list-users-dumb.component';
+import {UserSmartComponent} from './users/components/user/user-smart.component';
+import {UserDumbComponent} from './users/components/user/user-dumb.component';
+import {UserService} from './users/services/user.service';
+import {UserResolver} from './users/services/user.resolver';
+import {UsersResolver} from './users/services/users.resolver';
 
 @NgModule({
   declarations: [
@@ -22,6 +29,10 @@ import {ReqInterceptor} from './core/http.interceptor';
     ListRolesDumbComponent,
     RoleSmartComponent,
     RoleDumbComponent,
+    ListUsersSmartComponent,
+    ListUsersDumbComponent,
+    UserSmartComponent,
+    UserDumbComponent,
     SpinnerComponent
   ],
   imports: [
@@ -33,6 +44,9 @@ import {ReqInterceptor} from './core/http.interceptor';
     RoleService,
     RolesResolver,
     RoleResolver,
+    UserService,
+    UserResolver,
+    UsersResolver,
     SpinnerService,
     {
       provide: HTTP_INTERCEPTORS,

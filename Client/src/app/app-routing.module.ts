@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {RolesResolver} from './roles/services/roles.resolver';
 import {ListRolesSmartComponent} from './roles/components/list-roles/list-roles-smart.component';
+import {ListUsersSmartComponent} from './users/components/list-users/list-users-smart.component';
+import {UsersResolver} from './users/services/users.resolver';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'roles', pathMatch: 'full'},
+  {path: '', redirectTo: 'users', pathMatch: 'full'},
+  {path: 'users', component: ListUsersSmartComponent, resolve: {users: UsersResolver}},
   {path: 'roles', component: ListRolesSmartComponent, resolve: {roles: RolesResolver}}
 ];
 

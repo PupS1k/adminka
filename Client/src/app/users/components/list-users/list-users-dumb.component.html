@@ -1,0 +1,15 @@
+<div class="list-group">
+  <div class="list-group-item list-group-item-info item">
+    <span class="item__body id">ID</span>
+    <span class="item__body name">Username</span>
+    <span class="item__body name">Full Name</span>
+    <span class="item__body access">Age</span>
+    <span class="item__body access">Role</span>
+    <div class="item__btns"></div>
+  </div>
+
+  <app-user-smart
+    *ngFor="let user of users"
+    [user]="user"
+  ></app-user-smart>
+</div>
