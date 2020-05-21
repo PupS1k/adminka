@@ -32,7 +32,6 @@ export class UserEditSmartComponent implements OnInit, OnDestroy {
     this.route.data.pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.roles = data.roles;
-
         this.userForm = new FormGroup({
           fullName: new FormControl('', [Validators.required]),
           userName: new FormControl('', [Validators.required]),

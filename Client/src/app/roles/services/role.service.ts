@@ -20,8 +20,8 @@ export class RoleService {
     return this.http.post(`https://localhost:44388/api/roles`, role);
   }
 
-  updateRole(role: Role) {
-    return this.http.put(`https://localhost:44388/api/roles/${role.id}`, role);
+  updateRole(role: RoleForm, id: number) {
+    return this.http.put(`https://localhost:44388/api/roles/${id}`, role);
   }
 
   deleteRole(id) {
