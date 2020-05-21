@@ -9,6 +9,7 @@ import {RoleForm} from '../../models/role-form.model';
 })
 export class RoleEditDumbComponent {
   @Input() roleForm: FormGroup;
+
   @Output() edit = new EventEmitter();
 
   onSubmit() {
