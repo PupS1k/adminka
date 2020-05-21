@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {FormGroup} from '@angular/forms';
-import {UserForm} from '../../models/userForm.model';
 import {Role} from '../../../roles/models/role.model';
 
 @Component({

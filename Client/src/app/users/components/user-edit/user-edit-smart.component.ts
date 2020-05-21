@@ -20,7 +20,6 @@ import {UserService} from '../../services/user.service';
 })
 export class UserEditSmartComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  sub: Subscription;
   isUpdate = false;
   roles: Role[] = [];
   userId: number;

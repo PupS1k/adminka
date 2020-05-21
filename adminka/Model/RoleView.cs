@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace adminka.Model
 {
     public class RoleView

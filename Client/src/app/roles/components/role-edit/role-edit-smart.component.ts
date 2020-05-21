@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {getRoleForm} from '../../../utils';
@@ -18,7 +18,6 @@ import {RoleForm} from '../../models/role-form.model';
 })
 export class RoleEditSmartComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  sub: Subscription;
   isUpdate = false;
   roleId: number;
   roleForm = getRoleForm('', '');
