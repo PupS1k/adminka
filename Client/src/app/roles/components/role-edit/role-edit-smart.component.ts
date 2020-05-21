@@ -1,8 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {map, takeUntil} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
+import {getRoleForm} from '../../../utils';
+import {Role} from '../../models/role.model';
+import {RoleService} from '../../services/role.service';
+import {RoleForm} from '../../models/role-form.model';
 
 @Component({
   selector: 'app-role-edit-smart',
@@ -15,34 +18,35 @@ import {map, takeUntil} from 'rxjs/operators';
 })
 export class RoleEditSmartComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
+  sub: Subscription;
+  isUpdate = false;
   roleId: number;
-  roleForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    access: new FormControl('', [Validators.required])
-  });
+  roleForm = getRoleForm('', '');
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private roleService: RoleService
+  ) {
   }
 
   ngOnInit(): void {
-    this.route.data.pipe(
-      map(data => data.role),
-      takeUntil(this.destroy$)
-    ).subscribe(role => {
-      if (role) {
+    this.route.data.pipe(takeUntil(this.destroy$)).subscribe(data => {
+      if (data.role) {
+        const role: Role = data.role[0];
+        this.isUpdate = true;
         this.roleId = role.id;
-        this.roleForm = new FormGroup({
-          name: new FormControl(role.name, [Validators.required]),
-          access: new FormControl(role.access, [Validators.required])
-        });
+        this.roleForm = getRoleForm(role.name, role.access);
       }
     });
   }
 
-  onSubmit(role) {
-    console.log(role);
-    console.log(this.roleId);
-    this.router.navigate(['/roles']);
+  onSubmit(role: RoleForm) {
+    if (this.isUpdate) {
+      this.roleService.updateRole(role, this.roleId).subscribe(() => this.router.navigate(['/roles']));
+    } else {
+      this.roleService.createRole(role).subscribe(() => this.router.navigate(['/roles']));
+    }
   }
 
   ngOnDestroy(): void {

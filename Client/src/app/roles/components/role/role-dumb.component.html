@@ -3,7 +3,7 @@
   <span class="item__body name">{{role.name}}</span>
   <span class="item__body access">{{role.access}}</span>
   <div class="item__btns">
-    <span><button class="btn btn-primary">Update</button></span>
+    <span><button class="btn btn-primary" [routerLink]="['/roles', 'edit', role.id]">Update</button></span>
     <span><button class="btn btn-danger">Delete</button></span>
   </div>
 </div>

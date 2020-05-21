@@ -1,10 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {UserForm} from '../../models/userForm.model';
 import {Role} from '../../../roles/models/role.model';
+import {getUserForm} from '../../../utils';
+import {User} from '../../models/user.model';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-user-edit-smart',
@@ -18,43 +20,38 @@ import {Role} from '../../../roles/models/role.model';
 })
 export class UserEditSmartComponent implements OnInit, OnDestroy {
   destroy$ = new Subject();
-  roles: Role[];
+  sub: Subscription;
+  isUpdate = false;
+  roles: Role[] = [];
   userId: number;
-  userForm: FormGroup;
+  userForm = getUserForm('', '', 0, this.roles);
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-  ) {
-  }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$))
       .subscribe(data => {
         this.roles = data.roles;
-        this.userForm = new FormGroup({
-          fullName: new FormControl('', [Validators.required]),
-          userName: new FormControl('', [Validators.required]),
-          age: new FormControl(0, [Validators.required]),
-          role: new FormControl(data.roles, [Validators.required])
-        });
 
         if (data.user) {
-          this.userId = data.user.id;
-          this.userForm = new FormGroup({
-            fullName: new FormControl(data.user.fullName, [Validators.required]),
-            userName: new FormControl(data.user.userName, [Validators.required]),
-            age: new FormControl(data.user.age, [Validators.required]),
-            role: new FormControl(data.roles, [Validators.required])
-          });
+          const user: User = data.user[0];
+          this.isUpdate = true;
+          this.userId = user.id;
+          this.userForm = getUserForm(user.fullName, user.userName, user.age, user.role.id);
         }
       });
   }
 
   onSubmit(user: UserForm) {
-    console.log(user);
-    console.log(this.userId);
-    this.router.navigate(['/users']);
+    if (this.isUpdate) {
+      this.userService.updateUser(user, this.userId).subscribe(() => this.router.navigate(['/users']));
+    } else {
+      this.userService.createUser(user).subscribe(() => this.router.navigate(['/users']));
+    }
   }
 
   ngOnDestroy(): void {

@@ -18,7 +18,7 @@ export class UserEditDumbComponent {
       fullName: this.userForm.value.fullName,
       userName: this.userForm.value.userName,
       age: this.userForm.value.age,
-      roleId: this.userForm.value.role.id
+      roleId: this.userForm.value.role
     };
 
     this.edit.emit(user);
