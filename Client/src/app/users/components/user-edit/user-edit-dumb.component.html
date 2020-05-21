@@ -1,0 +1,45 @@
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group col-xs-8 col-xs-offset-2">
+    <label for="fullName">Full Name</label>
+    <input
+      id="fullName"
+      type="text"
+      class="form-control"
+      name="fullName"
+      formControlName="fullName"
+    >
+  </div>
+  <div class="form-group col-xs-8 col-xs-offset-2">
+    <label for="userName">Username</label>
+    <input
+      id="userName"
+      type="text"
+      class="form-control"
+      name="userName"
+      formControlName="userName"
+    >
+  </div>
+  <div class="form-group col-xs-8 col-xs-offset-2">
+    <label for="age">Age</label>
+    <input
+      id="age"
+      type="number"
+      class="form-control"
+      name="age"
+      formControlName="age"
+    >
+  </div>
+  <div class="form-group col-xs-8 col-xs-offset-2">
+    <label for="role">Role</label>
+    <select class="col-xs-12" formControlName="role" id="role">
+      <option *ngFor="let role of roles" [ngValue]="role">{{role.name}}</option>
+    </select>
+  </div>
+  <button
+    class="btn btn-primary col-xs-4 col-xs-offset-4"
+    type="submit"
+    [disabled]="userForm.invalid"
+  >
+    Update
+  </button>
+</form>

@@ -6,13 +6,15 @@ import {ListUsersSmartComponent} from './users/components/list-users/list-users-
 import {UsersResolver} from './users/services/users.resolver';
 import {RoleEditSmartComponent} from './roles/components/role-edit/role-edit-smart.component';
 import {RoleResolver} from './roles/services/role.resolver';
+import {UserEditSmartComponent} from './users/components/user-edit/user-edit-smart.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'users', pathMatch: 'full'},
   {path: 'users', component: ListUsersSmartComponent, resolve: {users: UsersResolver}},
   {path: 'roles', component: ListRolesSmartComponent, resolve: {roles: RolesResolver}},
-  {path: 'rolesedit', component: RoleEditSmartComponent}
+  {path: 'rolesedit', component: RoleEditSmartComponent},
+  {path: 'usersedit', component: UserEditSmartComponent, resolve: {roles: RolesResolver}}
 ];
 
 @NgModule({

@@ -9,7 +9,7 @@ export class RoleService {
   constructor(private http: HttpClient) {}
 
   fetchRoles() {
-    return this.http.get('https://localhost:44388/api/roles');
+    return this.http.get<Role[]>('https://localhost:44388/api/roles');
   }
 
   fetchRole(id: number) {

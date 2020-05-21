@@ -24,6 +24,8 @@ import {UsersResolver} from './users/services/users.resolver';
 import { RoleEditDumbComponent } from './roles/components/role-edit/role-edit-dumb.component';
 import {RoleEditSmartComponent} from './roles/components/role-edit/role-edit-smart.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {UserEditDumbComponent} from './users/components/user-edit/user-edit-dumb.component';
+import {UserEditSmartComponent} from './users/components/user-edit/user-edit-smart.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import {ReactiveFormsModule} from '@angular/forms';
     UserDumbComponent,
     SpinnerComponent,
     RoleEditDumbComponent,
-    RoleEditSmartComponent
+    RoleEditSmartComponent,
+    UserEditDumbComponent,
+    UserEditSmartComponent
   ],
   imports: [
     BrowserModule,
