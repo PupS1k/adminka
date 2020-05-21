@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject, Subscription} from 'rxjs';
+import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
 import {UserForm} from '../../models/userForm.model';
 import {Role} from '../../../roles/models/role.model';
-import {getUserForm} from '../../../utils';
+import {getUserForm} from '../../utils';
 import {User} from '../../models/user.model';
 import {UserService} from '../../services/user.service';
 

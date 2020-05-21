@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {takeUntil} from 'rxjs/operators';
-import {getRoleForm} from '../../../utils';
+import {getRoleForm} from '../../utils';
 import {Role} from '../../models/role.model';
 import {RoleService} from '../../services/role.service';
 import {RoleForm} from '../../models/role-form.model';
