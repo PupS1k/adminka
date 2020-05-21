@@ -8,4 +8,8 @@ import {User} from '../../models/user.model';
 })
 export class ListUsersDumbComponent {
   @Input() users: User[];
+
+  onDeleteUser(id) {
+    this.users = this.users.filter(user => user.id !== id);
+  }
 }

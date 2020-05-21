@@ -11,6 +11,4 @@ import {Role} from '../../models/role.model';
 })
 export class RoleSmartComponent {
   @Input() role: Role;
-
-
 }

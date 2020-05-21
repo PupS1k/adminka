@@ -10,6 +10,7 @@
   <app-user-smart
     *ngFor="let user of users"
     [user]="user"
+    (deleteUser)="onDeleteUser($event)"
   ></app-user-smart>
 </div>
 <button class="btn btn-success center-block" routerLink="/users/edit">Add</button>

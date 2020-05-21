@@ -6,6 +6,6 @@
   <span class="item__body access">{{user.role.name}}</span>
   <div class="item__btns">
     <span><button class="btn btn-primary" [routerLink]="['/users', 'edit', user.id]">Update</button></span>
-    <span><button class="btn btn-danger">Delete</button></span>
+    <span><button class="btn btn-danger" (click)="onDeleteUser()">Delete</button></span>
   </div>
 </div>

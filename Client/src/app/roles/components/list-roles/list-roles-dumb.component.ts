@@ -8,4 +8,6 @@ import {Role} from '../../models/role.model';
 })
 export class ListRolesDumbComponent {
   @Input() roles: Role[];
+
+
 }
