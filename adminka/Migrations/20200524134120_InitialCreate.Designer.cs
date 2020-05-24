@@ -10,7 +10,7 @@ using adminka.Model;
 namespace adminka.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20200524003704_InitialCreate")]
+    [Migration("20200524134120_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
