@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace adminka.Model
 {
-    public class Role
+    public class RoleView
     {
         [Key]
         public int Id { get; set; }
@@ -14,7 +14,5 @@ namespace adminka.Model
         [Required]
         [Column(TypeName = "varchar(20)")]
         public string Access { get; set; }
-
-        public List<User> Users { get; set; }
     }
 }

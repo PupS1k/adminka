@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace adminka.Model
 {
-    public class User
+    public class UserView
     {
         [Key]
         public int Id { get; set; }
@@ -17,9 +17,6 @@ namespace adminka.Model
         [Column(TypeName = "varchar(20)")]
         public string UserName { get; set; }
 
-        [ForeignKey("Role")]
-        public int? RoleId { get; set; }
-        public Role Role { get; set; }
-
+        public RoleView Role { get; set; }
     }
 }

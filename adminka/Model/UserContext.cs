@@ -7,7 +7,7 @@ namespace adminka.Model
     {
         public UserContext(DbContextOptions<UserContext> options) : base(options)
         {
-            Database.EnsureCreated();
+           // Database.EnsureCreated();
         }
 
         public DbSet<Role> Roles { get; set; }
