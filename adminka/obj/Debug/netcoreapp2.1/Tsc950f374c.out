@@ -8,8 +8,6 @@ D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\models\role.model.
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\models\role.model.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\utils.js
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\utils.js.map
-D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\utils.js
-D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\utils.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\models\user.model.js
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\models\user.model.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\services\user.service.js
@@ -42,6 +40,8 @@ D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\users.module.js
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\users\users.module.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\components\list-roles\list-roles-smart.component.js
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\components\list-roles\list-roles-smart.component.js.map
+D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\utils.js
+D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\utils.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\components\role-edit\role-edit-smart.component.js
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\components\role-edit\role-edit-smart.component.js.map
 D:\Work\adm\adminka\adminka\Client\dist\out-tsc\src\app\roles\services\role.resolver.js

@@ -16,3 +16,11 @@ D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\adminka.pdb
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.dll
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.pdb
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.csproj.CoreCompileInputs.cache
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\angular.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\e2e\tsconfig.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\package-lock.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\package.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\tsconfig.app.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\tsconfig.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\tsconfig.spec.json
+D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\Client\tslint.json
