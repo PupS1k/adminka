@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace adminka.Model
@@ -17,6 +18,6 @@ namespace adminka.Model
         [Column(TypeName = "varchar(20)")]
         public string UserName { get; set; }
 
-        public RoleView Role { get; set; }
+        public List<RoleView> Roles { get; set; }
     }
 }

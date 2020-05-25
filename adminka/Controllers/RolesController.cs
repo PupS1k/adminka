@@ -17,6 +17,8 @@ namespace adminka.Controllers
 
         public RolesController(UserContext context, IMapper mapper)
         {
+
+
             _mapper = mapper;
             _context = context;
         }

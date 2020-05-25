@@ -26,7 +26,7 @@ namespace adminka.Controllers
         [HttpGet]
         public IEnumerable<UserView> GetUsers()
         {
-            var users = _context.Users.Include(u => u.Role).ToList();
+            var users = _context.Users.Include(u => u.Roles).ToList();
 
             return _mapper.Map<List<User>, List<UserView>>(users);
         }
@@ -40,7 +40,7 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Users.Where(u => u.Id == id).Include(u => u.Role).ToListAsync();
+            var user = await _context.Users.Where(u => u.Id == id).Include(u => u.Roles).ToListAsync();
 
             if (user == null)
             {
