@@ -38,12 +38,8 @@ namespace adminka
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddCors();
 
-            services.AddHttpsRedirection(options =>
-            {
-                options.HttpsPort = 5001;
-            });
+            services.AddCors();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

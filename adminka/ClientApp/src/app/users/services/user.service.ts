@@ -1,33 +1,29 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {UserForm} from '../models/userForm.model';
-import {getBaseUrl} from '../../utils';
 
 
 @Injectable()
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = getBaseUrl();
-
   fetchUsers() {
-    console.log(this.baseUrl);
-    return this.http.get(`${this.baseUrl}api/users`);
+    return this.http.get(`https://localhost:44388/api/users`);
   }
 
   fetchUser(id: number) {
-    return this.http.get(`${this.baseUrl}api/users/${id}`);
+    return this.http.get(`https://localhost:44388/api/users/${id}`);
   }
 
   createUser(user) {
-    return this.http.post(`${this.baseUrl}api/users`, user);
+    return this.http.post(`https://localhost:44388/api/users`, user);
   }
 
   updateUser(user: UserForm, id: number) {
-    return this.http.put(`${this.baseUrl}api/users/${id}`, {...user, id});
+    return this.http.put(`https://localhost:44388/api/users/${id}`, {...user, id});
   }
 
   deleteUser(id) {
-    return this.http.delete(`${this.baseUrl}/api/users/${id}`);
+    return this.http.delete(`https://localhost:44388//api/users/${id}`);
   }
 }
