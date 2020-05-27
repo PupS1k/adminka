@@ -75,12 +75,28 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
+            var allRoles = _context.RoleUsrs.Where(u => u.UserId == id).ToList();
+            _context.RoleUsrs.RemoveRange(allRoles);
+
+            User newUser = new User
+            {
+                Id = id,
+                Age = user.Age,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Roles = user.Roles.Select(roleuser => {
+                    RoleUser newRoleUser = new RoleUser { RoleId = roleuser.RoleId, UserId = id };
+                    _context.RoleUsrs.Add(newRoleUser);
+                    return newRoleUser;
+                }).ToList()
+            };
+
             if (id != user.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Entry(newUser).State = EntityState.Modified;
 
             try
             {
