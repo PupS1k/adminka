@@ -19,33 +19,6 @@ namespace adminka.Controllers
 
         public UsersController(UserContext context, IMapper mapper)
         {
-            /*var roles = new[]
-            {
-                new Role{Access="sada", Name="asdsa"},
-                new Role{Access="sada", Name="asdsa"},
-                new Role{Access="sada", Name="asdsa"}
-            };
-
-            var users = new[]
-            {
-                new User{Age=12, FullName="sad", UserName="sada" }
-            };
-
-            var rolus = new[]
-            {
-                new RoleUser{Role=roles[0], User=users[0]},
-                new RoleUser{Role=roles[1], User=users[0]}
-            };
-
-            users[0].Roles.Add(rolus[0]);
-            users[0].Roles.Add(rolus[1]);
-
-            context.Rols.AddRange(roles[0], roles[1], roles[2]);
-            context.Usrs.Add(users[0]);
-            context.RoleUsrs.AddRange(rolus[0], rolus[1]);
-
-            context.SaveChanges();*/
-
             _context = context;
             _mapper = mapper;
         }
@@ -54,9 +27,16 @@ namespace adminka.Controllers
         [HttpGet]
         public IEnumerable<UserView> GetUsers()
         {
-            var users = _context.Usrs.Include(u => u.Roles).ThenInclude(r => r.Role).ToList();
+            var users = _context.Usrs.Include(u => u.Roles).ThenInclude(r => r.Role).Select(user => new UserView
+            {
+                Id = user.Id,
+                Age = user.Age,
+                FullName = user.FullName,
+                UserName = user.UserName,
+                Roles = user.Roles.Select(role => _mapper.Map<Role, RoleView>(role.Role)).ToList()
+            }).ToList();
 
-            return _mapper.Map<List<User>, List<UserView>>(users);
+            return users;
         }
 
         // GET: api/Users/5
@@ -68,14 +48,22 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Usrs.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role).ToListAsync();
+            var user = await _context.Usrs.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role)
+                .Select(usr => new UserView
+                {
+                    Id = usr.Id,
+                    Age = usr.Age,
+                    FullName = usr.FullName,
+                    UserName = usr.UserName,
+                    Roles = usr.Roles.Select(role => _mapper.Map<Role, RoleView>(role.Role)).ToList()
+                }).ToListAsync();
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(_mapper.Map<List<User>, List<UserView>>(user));
+            return Ok(user);
         }
 
         // PUT: api/Users/5
