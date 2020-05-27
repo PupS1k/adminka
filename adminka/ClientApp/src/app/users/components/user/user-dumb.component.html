@@ -3,7 +3,11 @@
   <span class="item__body name">{{user.fullName}}</span>
   <span class="item__body name">{{user.userName}}</span>
   <span class="item__body access">{{user.age}}</span>
-  <span class="item__body access">{{user.role.name}}</span>
+  <div class="item__body access">
+    <span *ngFor="let role of user.roles">
+      {{role.name}}
+    </span>
+  </div>
   <div class="item__btns">
     <button class="btn btn-primary" [routerLink]="['/users', 'edit', user.id]">Update</button>
     <button class="btn btn-danger" (click)="onDeleteUser()">Delete</button>

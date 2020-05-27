@@ -40,7 +40,7 @@ export class UserEditSmartComponent implements OnInit, OnDestroy {
           const user: User = data.user[0];
           this.isUpdate = true;
           this.userId = user.id;
-          this.userForm = getUserForm(user.fullName, user.userName, user.age, user.role.id);
+          this.userForm = getUserForm(user.fullName, user.userName, user.age, user.roles[0].id);
         }
       });
   }
