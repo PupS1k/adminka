@@ -10,6 +10,8 @@ import {Role} from '../../../roles/models/role.model';
 export class UserEditDumbComponent {
   @Input() userForm: FormGroup;
   @Input() roles: Role[];
+  @Input() isUpdate: boolean;
+
   @Output() edit = new EventEmitter();
 
   onSubmit() {
@@ -17,7 +19,7 @@ export class UserEditDumbComponent {
       fullName: this.userForm.value.fullName,
       userName: this.userForm.value.userName,
       age: this.userForm.value.age,
-      roleId: this.userForm.value.role
+      roles: this.userForm.value.role
     };
 
     this.edit.emit(user);

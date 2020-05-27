@@ -14,6 +14,7 @@ import {UserService} from '../../services/user.service';
     <app-user-edit-dumb
       [userForm]="userForm"
       [roles]="roles"
+      [isUpdate]="isUpdate"
       (edit)="onSubmit($event)"
     ></app-user-edit-dumb>
   `
@@ -23,7 +24,7 @@ export class UserEditSmartComponent implements OnInit, OnDestroy {
   isUpdate = false;
   roles: Role[] = [];
   userId: number;
-  userForm = getUserForm('', '', 0, this.roles);
+  userForm = getUserForm('', '', 0, []);
 
   constructor(
     private route: ActivatedRoute,
@@ -34,13 +35,13 @@ export class UserEditSmartComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$))
       .subscribe(data => {
-        this.roles = data.roles;
+        this.roles = data.role;
 
         if (data.user) {
           const user: User = data.user[0];
           this.isUpdate = true;
           this.userId = user.id;
-          this.userForm = getUserForm(user.fullName, user.userName, user.age, user.roles[0].id);
+          this.userForm = getUserForm(user.fullName, user.userName, user.age, []);
         }
       });
   }

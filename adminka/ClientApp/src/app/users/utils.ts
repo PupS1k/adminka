@@ -7,11 +7,11 @@ export function positiveNumberValidator(): ValidatorFn {
   };
 }
 
-export function getUserForm(fullName, userName, age, role) {
+export function getUserForm(fullName, userName, age, roles) {
   return new FormGroup({
     fullName: new FormControl(fullName, [Validators.required]),
     userName: new FormControl(userName, [Validators.required]),
     age: new FormControl(age, [Validators.required, positiveNumberValidator()]),
-    role: new FormControl(role, [Validators.required])
+    role: new FormControl(roles, [Validators.required])
   });
 }

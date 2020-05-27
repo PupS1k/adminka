@@ -13,7 +13,7 @@ import {ActivatedRoute} from '@angular/router';
   `
 })
 export class ListRolesSmartComponent {
-  roles$: Observable<Role[]> = this.route.data.pipe(map(data => data.roles));
+  roles$: Observable<Role[]> = this.route.data.pipe(map(data => data.role));
 
   constructor(private route: ActivatedRoute) { }
 }

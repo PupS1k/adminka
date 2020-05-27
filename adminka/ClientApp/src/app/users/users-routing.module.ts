@@ -9,8 +9,8 @@ import {UserResolver} from './services/user.resolver';
 
 const usersRoutes: Routes = [
   {path: '', component: ListUsersSmartComponent, resolve: {users: UsersResolver}},
-  {path: 'edit', component: UserEditSmartComponent, resolve: {roles: RolesResolver}},
-  {path: 'edit/:id', component: UserEditSmartComponent, resolve: {roles: RolesResolver, user: UserResolver}}
+  {path: 'edit', component: UserEditSmartComponent, resolve: {role: RolesResolver}},
+  {path: 'edit/:id', component: UserEditSmartComponent, resolve: {role: RolesResolver, user: UserResolver}}
 ];
 
 @NgModule({

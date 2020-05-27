@@ -7,7 +7,7 @@ import {RoleResolver} from './services/role.resolver';
 
 
 const rolesRoutes: Routes = [
-  {path: '', component: ListRolesSmartComponent, resolve: {roles: RolesResolver}},
+  {path: '', component: ListRolesSmartComponent, resolve: {role: RolesResolver}},
   {path: 'edit', component: RoleEditSmartComponent},
   {path: 'edit/:id', component: RoleEditSmartComponent, resolve: {role: RoleResolver}}
 ];

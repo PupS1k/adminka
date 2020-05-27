@@ -30,10 +30,10 @@
     >
   </div>
   <div class="form-group col-xs-8 col-xs-offset-2">
-    <label for="role">Role</label>
-    <select class="form-control col-xs-12" formControlName="role" id="role">
+    <label for="roles">Roles</label>
+    <select multiple class="form-control col-xs-12" formControlName="role" id="roles">
       <option value="" disabled>Choose role</option>
-      <option *ngFor="let role of roles" [ngValue]="role.id">{{role.name}}</option>
+      <option *ngFor="let role of roles" [ngValue]="{roleId: role.id}">{{role.name}}</option>
     </select>
   </div>
   <button
@@ -41,6 +41,6 @@
     type="submit"
     [disabled]="userForm.invalid"
   >
-    Update
+    {{isUpdate ? 'Update' : 'Add'}}
   </button>
 </form>
