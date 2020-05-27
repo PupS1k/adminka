@@ -1,4 +1,5 @@
 ﻿using adminka.Model;
+using adminka.ModelDTO;
 using AutoMapper;
 
 namespace adminka.Mapping
@@ -8,7 +9,11 @@ namespace adminka.Mapping
         public MappingProfile()
         {
             CreateMap<User, UserView>();
+            CreateMap<UserView, User>();
             CreateMap<Role, RoleView>();
+            CreateMap<RoleView, Role>();
+            CreateMap<RoleUser, RoleUserView>();
+            CreateMap<RoleUserView, RoleUser>();
         }
     }
 }

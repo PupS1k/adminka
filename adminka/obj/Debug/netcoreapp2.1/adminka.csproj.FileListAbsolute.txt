@@ -5,7 +5,6 @@ D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\adminka.deps.json
 D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\adminka.runtimeconfig.json
 D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\adminka.runtimeconfig.dev.json
 D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\adminka.dll
-D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.csprojAssemblyReference.cache
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.RazorAssemblyInfo.cache
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.RazorAssemblyInfo.cs
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.AssemblyInfoInputs.cache
@@ -24,3 +23,4 @@ D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\ClientApp\tsconfig.json
 D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\ClientApp\tsconfig.spec.json
 D:\Work\adm\adminka\adminka\bin\Debug\netcoreapp2.1\ClientApp\tslint.json
 D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.csproj.CoreCompileInputs.cache
+D:\Work\adm\adminka\adminka\obj\Debug\netcoreapp2.1\adminka.csprojAssemblyReference.cache

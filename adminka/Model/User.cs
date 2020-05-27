@@ -18,7 +18,12 @@ namespace adminka.Model
         [Column(TypeName = "varchar(20)")]
         public string UserName { get; set; }
 
-        public List<Role> Roles { get; set; }
+        public virtual List<RoleUser> Roles { get; set; }
+
+        public User()
+        {
+            Roles = new List<RoleUser>();
+        }
 
     }
 }

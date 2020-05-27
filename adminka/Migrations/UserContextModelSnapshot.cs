@@ -35,7 +35,20 @@ namespace adminka.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Rols");
+                });
+
+            modelBuilder.Entity("adminka.Model.RoleUser", b =>
+                {
+                    b.Property<int?>("RoleId");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("RoleId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RoleUsrs");
                 });
 
             modelBuilder.Entity("adminka.Model.User", b =>
@@ -51,24 +64,26 @@ namespace adminka.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int?>("RoleId");
-
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("varchar(20)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("Users");
+                    b.ToTable("Usrs");
                 });
 
-            modelBuilder.Entity("adminka.Model.User", b =>
+            modelBuilder.Entity("adminka.Model.RoleUser", b =>
                 {
                     b.HasOne("adminka.Model.Role", "Role")
                         .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("adminka.Model.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

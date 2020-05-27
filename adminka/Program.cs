@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore;
+﻿using adminka.Model;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace adminka
