@@ -75,8 +75,26 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var allRoles = _context.RoleUsrs.Where(u => u.UserId == id).ToList();
-            _context.RoleUsrs.RemoveRange(allRoles);
+            
+            var allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
+            bool isUnchangedRoleUser = false;
+
+            if (allRoles.Count != user.Roles.Count)
+            {
+                isUnchangedRoleUser = true;
+            }
+            
+            IEnumerable<int> rolesId = user.Roles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
+            IEnumerable<int> allRolesId = allRoles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
+            if (!allRolesId.SequenceEqual(rolesId))
+            {
+                isUnchangedRoleUser = true;
+            }
+
+            if (isUnchangedRoleUser)
+            {
+                _context.RoleUsrs.RemoveRange(allRoles);
+            }
 
             User newUser = new User
             {
@@ -84,11 +102,13 @@ namespace adminka.Controllers
                 Age = user.Age,
                 FullName = user.FullName,
                 UserName = user.UserName,
-                Roles = user.Roles.Select(roleuser => {
-                    RoleUser newRoleUser = new RoleUser { RoleId = roleuser.RoleId, UserId = id };
-                    _context.RoleUsrs.Add(newRoleUser);
-                    return newRoleUser;
-                }).ToList()
+                Roles = isUnchangedRoleUser 
+                    ? user.Roles.Select(roleuser => {
+                        RoleUser newRoleUser = new RoleUser { RoleId = roleuser.RoleId, UserId = id };
+                        _context.RoleUsrs.Add(newRoleUser);
+                        return newRoleUser;
+                    }).ToList() 
+                    : user.Roles.Select(roleuser => new RoleUser { RoleId = roleuser.RoleId, UserId = id }).ToList()
             };
 
             if (id != user.Id)
