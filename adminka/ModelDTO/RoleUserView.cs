@@ -8,7 +8,7 @@ namespace adminka.ModelDTO
 {
     public class RoleUserView
     {
-        public int? RoleId { get; set; }
+        public int RoleId { get; set; }
         public RoleView Role { get; set; }
     }
 }

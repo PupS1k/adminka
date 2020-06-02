@@ -95,7 +95,7 @@ namespace adminka.Controllers
             _context.Rols.Add(role);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRole", new { id = role.Id }, role);
+            return CreatedAtAction("GetRole", new {id = role.Id}, role);
         }
 
         // DELETE: api/Roles/5

@@ -27,16 +27,8 @@ namespace adminka.Controllers
         [HttpGet]
         public IEnumerable<UserView> GetUsers()
         {
-            var users = _context.Usrs.Include(u => u.Roles).ThenInclude(r => r.Role).Select(user => new UserView
-            {
-                Id = user.Id,
-                Age = user.Age,
-                FullName = user.FullName,
-                UserName = user.UserName,
-                Roles = user.Roles.Select(role => _mapper.Map<Role, RoleView>(role.Role)).ToList()
-            }).ToList();
-
-            return users;
+            var users = _context.Usrs.Include(u => u.Roles).ThenInclude(r => r.Role).ToList();
+            return _mapper.Map<List<User>, List<UserView>>(users);
         }
 
         // GET: api/Users/5
@@ -48,75 +40,54 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Usrs.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role)
-                .Select(usr => new UserView
-                {
-                    Id = usr.Id,
-                    Age = usr.Age,
-                    FullName = usr.FullName,
-                    UserName = usr.UserName,
-                    Roles = usr.Roles.Select(role => _mapper.Map<Role, RoleView>(role.Role)).ToList()
-                }).ToListAsync();
+            var user = await _context.Usrs.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role).ToListAsync();
 
             if (user == null)
             {
                 return NotFound();
             }
 
-            return Ok(user);
+            return Ok(_mapper.Map<List<User>, List<UserView>>(user));
+        }
+
+        public void updateRoleUsers(List<RoleUser> oldRoleUsers, List<RoleUser> newRoleUsers)
+        {
+            _context.RoleUsrs.RemoveRange(oldRoleUsers);
+            newRoleUsers.ForEach(roleUser => _context.RoleUsrs.Add(roleUser));
         }
 
         // PUT: api/Users/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] User user)
+        public async Task<IActionResult> PutUser([FromRoute] int id, [FromBody] EditUserView editUser)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            
-            var allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
-            bool isUnchangedRoleUser = false;
+            User user = _mapper.Map<EditUserView, User>(editUser);
+            List<RoleUser> allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
 
             if (allRoles.Count != user.Roles.Count)
             {
-                isUnchangedRoleUser = true;
+                updateRoleUsers(allRoles, user.Roles);
             }
-            
-            IEnumerable<int> rolesId = user.Roles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
-            IEnumerable<int> allRolesId = allRoles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
-            if (!allRolesId.SequenceEqual(rolesId))
+            else
             {
-                isUnchangedRoleUser = true;
-            }
-
-            if (isUnchangedRoleUser)
-            {
-                _context.RoleUsrs.RemoveRange(allRoles);
+                IEnumerable<int> rolesId = user.Roles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
+                IEnumerable<int> allRolesId = allRoles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
+                if (!allRolesId.SequenceEqual(rolesId))
+                {
+                    updateRoleUsers(allRoles, user.Roles);
+                }
             }
 
-            User newUser = new User
-            {
-                Id = id,
-                Age = user.Age,
-                FullName = user.FullName,
-                UserName = user.UserName,
-                Roles = isUnchangedRoleUser 
-                    ? user.Roles.Select(roleuser => {
-                        RoleUser newRoleUser = new RoleUser { RoleId = roleuser.RoleId, UserId = id };
-                        _context.RoleUsrs.Add(newRoleUser);
-                        return newRoleUser;
-                    }).ToList() 
-                    : user.Roles.Select(roleuser => new RoleUser { RoleId = roleuser.RoleId, UserId = id }).ToList()
-            };
-
-            if (id != user.Id)
+            if (id != editUser.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(newUser).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -134,32 +105,22 @@ namespace adminka.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(editUser);
         }
 
         // POST: api/Users
         [HttpPost]
-        public async Task<IActionResult> PostUser([FromBody] User user)
+        public async Task<IActionResult> PostUser([FromBody] EditUserView user)
         {
-            User newUser = new User
-            {
-                Age = user.Age,
-                FullName = user.FullName,
-                UserName = user.UserName,
-                Roles = user.Roles.Select(roleuser => {
-                    RoleUser newRoleUser = new RoleUser { RoleId = roleuser.RoleId, UserId = user.Id };
-                    _context.RoleUsrs.Add(newRoleUser);
-                    return newRoleUser;
-                }).ToList()
-            };
-
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            User newUser = _mapper.Map<EditUserView, User>(user);
 
             _context.Usrs.Add(newUser);
+            newUser.Roles.ForEach(roleUser => _context.RoleUsrs.Add(roleUser));
 
             await _context.SaveChangesAsync();
 
@@ -176,12 +137,14 @@ namespace adminka.Controllers
             }
 
             var user = await _context.Usrs.FindAsync(id);
+            List<RoleUser> allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
             if (user == null)
             {
                 return NotFound();
             }
 
             _context.Usrs.Remove(user);
+            allRoles.ForEach(roleUser => _context.RoleUsrs.Remove(roleUser));
             await _context.SaveChangesAsync();
 
             return Ok(user);

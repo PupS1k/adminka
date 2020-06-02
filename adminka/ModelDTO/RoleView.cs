@@ -9,10 +9,8 @@ namespace adminka.Model
     {
         [Key]
         public int Id { get; set; }
-        [Required]
         [Column(TypeName = "nvarchar(100)")]
         public string Name { get; set; }
-        [Required]
         [Column(TypeName = "varchar(20)")]
         public string Access { get; set; }
     }
