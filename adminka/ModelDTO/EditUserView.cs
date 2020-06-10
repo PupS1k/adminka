@@ -1,4 +1,5 @@
-﻿using System;
+﻿using adminka.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,11 +22,11 @@ namespace adminka.ModelDTO
         [Column(TypeName = "varchar(20)")]
         public string UserName { get; set; }
 
-        public List<RoleUserView> Roles { get; set; }
+        public List<RoleUser> Roles { get; set; }
 
         public EditUserView()
         {
-            Roles = new List<RoleUserView>();
+            Roles = new List<RoleUser>();
         }
     }
 }

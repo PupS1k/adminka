@@ -25,7 +25,7 @@ namespace adminka.Controllers
         [HttpGet]
         public IEnumerable<RoleView> GetRoles()
         {
-            var roles = _context.Rols.ToList();
+            var roles = _context.Roles.ToList();
             return _mapper.Map<List<Role>, List<RoleView>>(roles);
         }
 
@@ -38,7 +38,7 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var role = await _context.Rols.Where(r => r.Id == id).ToListAsync();
+            var role = await _context.Roles.Where(r => r.Id == id).ToListAsync();
 
             if (role == null)
             {
@@ -92,7 +92,7 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            _context.Rols.Add(role);
+            _context.Roles.Add(role);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetRole", new {id = role.Id}, role);
@@ -107,13 +107,13 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var role = await _context.Rols.FindAsync(id);
+            var role = await _context.Roles.FindAsync(id);
             if (role == null)
             {
                 return NotFound();
             }
 
-            _context.Rols.Remove(role);
+            _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
 
             return Ok(role);
@@ -121,7 +121,7 @@ namespace adminka.Controllers
 
         private bool RoleExists(int id)
         {
-            return _context.Rols.Any(e => e.Id == id);
+            return _context.Roles.Any(e => e.Id == id);
         }
     }
 }

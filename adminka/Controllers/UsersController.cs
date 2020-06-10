@@ -27,7 +27,7 @@ namespace adminka.Controllers
         [HttpGet]
         public IEnumerable<UserView> GetUsers()
         {
-            var users = _context.Usrs.Include(u => u.Roles).ThenInclude(r => r.Role).ToList();
+            var users = _context.Users.Include(u => u.Roles).ThenInclude(r => r.Role).ToList();
             return _mapper.Map<List<User>, List<UserView>>(users);
         }
 
@@ -40,7 +40,7 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Usrs.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role).ToListAsync();
+            var user = await _context.Users.Where(u => u.Id == id).Include(u => u.Roles).ThenInclude(r => r.Role).ToListAsync();
 
             if (user == null)
             {
@@ -48,12 +48,6 @@ namespace adminka.Controllers
             }
 
             return Ok(_mapper.Map<List<User>, List<UserView>>(user));
-        }
-
-        public void updateRoleUsers(List<RoleUser> oldRoleUsers, List<RoleUser> newRoleUsers)
-        {
-            _context.RoleUsrs.RemoveRange(oldRoleUsers);
-            newRoleUsers.ForEach(roleUser => _context.RoleUsrs.Add(roleUser));
         }
 
         // PUT: api/Users/5
@@ -65,29 +59,18 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            User user = _mapper.Map<EditUserView, User>(editUser);
-            List<RoleUser> allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
+            _context.RoleUsers.Where(roleUser => roleUser.UserId == id).ToList()
+                .ForEach(deleted => _context.RoleUsers.Remove(deleted));
 
-            if (allRoles.Count != user.Roles.Count)
-            {
-                updateRoleUsers(allRoles, user.Roles);
-            }
-            else
-            {
-                IEnumerable<int> rolesId = user.Roles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
-                IEnumerable<int> allRolesId = allRoles.OrderBy(u => u.RoleId).Select(roleuser => roleuser.RoleId);
-                if (!allRolesId.SequenceEqual(rolesId))
-                {
-                    updateRoleUsers(allRoles, user.Roles);
-                }
-            }
+            User user = _mapper.Map<EditUserView, User>(editUser);
+
 
             if (id != editUser.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = EntityState.Modified;
+            _context.Users.Update(user);
 
             try
             {
@@ -105,7 +88,7 @@ namespace adminka.Controllers
                 }
             }
 
-            return Ok(editUser);
+            return NoContent();
         }
 
         // POST: api/Users
@@ -119,8 +102,8 @@ namespace adminka.Controllers
 
             User newUser = _mapper.Map<EditUserView, User>(user);
 
-            _context.Usrs.Add(newUser);
-            newUser.Roles.ForEach(roleUser => _context.RoleUsrs.Add(roleUser));
+            _context.Users.Add(newUser);
+            newUser.Roles.ForEach(roleUser => _context.RoleUsers.Add(roleUser));
 
             await _context.SaveChangesAsync();
 
@@ -136,15 +119,15 @@ namespace adminka.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = await _context.Usrs.FindAsync(id);
-            List<RoleUser> allRoles = _context.RoleUsrs.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
+            var user = await _context.Users.FindAsync(id);
+            List<RoleUser> allRoles = _context.RoleUsers.Where(u => u.UserId == id).OrderBy(u => u.RoleId).ToList();
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Usrs.Remove(user);
-            allRoles.ForEach(roleUser => _context.RoleUsrs.Remove(roleUser));
+            _context.Users.Remove(user);
+            allRoles.ForEach(roleUser => _context.RoleUsers.Remove(roleUser));
             await _context.SaveChangesAsync();
 
             return Ok(user);
@@ -152,7 +135,7 @@ namespace adminka.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Usrs.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

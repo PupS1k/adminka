@@ -8,7 +8,7 @@ namespace adminka.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Rols",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -18,11 +18,11 @@ namespace adminka.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rols", x => x.Id);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Usrs",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,11 +33,11 @@ namespace adminka.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usrs", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoleUsrs",
+                name: "RoleUsers",
                 columns: table => new
                 {
                     RoleId = table.Column<int>(nullable: false),
@@ -45,37 +45,37 @@ namespace adminka.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RoleUsrs", x => new { x.RoleId, x.UserId });
+                    table.PrimaryKey("PK_RoleUsers", x => new { x.RoleId, x.UserId });
                     table.ForeignKey(
-                        name: "FK_RoleUsrs_Rols_RoleId",
+                        name: "FK_RoleUsers_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Rols",
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RoleUsrs_Usrs_UserId",
+                        name: "FK_RoleUsers_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "Usrs",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_RoleUsrs_UserId",
-                table: "RoleUsrs",
+                name: "IX_RoleUsers_UserId",
+                table: "RoleUsers",
                 column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RoleUsrs");
+                name: "RoleUsers");
 
             migrationBuilder.DropTable(
-                name: "Rols");
+                name: "Roles");
 
             migrationBuilder.DropTable(
-                name: "Usrs");
+                name: "Users");
         }
     }
 }

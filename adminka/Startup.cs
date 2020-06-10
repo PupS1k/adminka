@@ -1,6 +1,7 @@
 ﻿using adminka.Mapping;
 using adminka.Model;
 using AutoMapper;
+using AutoMapper.EquivalencyExpression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace adminka
 
             var mappingConfig = new MapperConfiguration(mc =>
             {
+                mc.AddCollectionMappers();
                 mc.AddProfile(new MappingProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();

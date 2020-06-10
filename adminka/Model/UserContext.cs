@@ -10,10 +10,10 @@ namespace adminka.Model
             // Database.EnsureCreated();
         }
 
-        public DbSet<Role> Rols { get; set; }
-        public DbSet<User> Usrs { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public DbSet<RoleUser> RoleUsrs { get; set; }
+        public DbSet<RoleUser> RoleUsers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,11 +22,13 @@ namespace adminka.Model
             modelBuilder.Entity<RoleUser>()
                 .HasOne(bc => bc.User)
                 .WithMany(b => b.Roles)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey(bc => bc.UserId);
 
             modelBuilder.Entity<RoleUser>()
                 .HasOne(bc => bc.Role)
                 .WithMany(c => c.Users)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasForeignKey(bc => bc.RoleId);
 
             base.OnModelCreating(modelBuilder);
